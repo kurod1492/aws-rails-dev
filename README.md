@@ -6,6 +6,8 @@ AWS Cloud9 開発環境を作成すると、Ruby が使える状態になって�
 そこで、rbenv をインストールし、Ruby の最新バージョンをインストールします。
 そのあと Ruby on Rails の最新バージョンもインストールします。
 
+また、Cloud9 で新規ファイルを作成する手順、Git の基本的な使い方、BitBucket に保存する手順も説明します。
+
 # Cloud9 開発環境の作成
 
 * 新しく Cloud9 開発環境を作成します。
@@ -74,12 +76,14 @@ rbenv をインストールします。
 
 rbenv を使ってRubyをインストールします。
 今回はバージョン 2.7.1 をインストールします。
+
 以下のコマンドを実行します。
 
     $ rbenv install 2.7.1
 
 Ruby のソースコードをダウンロードしてコンパイルするため、少し時間がかかります。
 インストールできたら、ruby コマンドが実行できるようにします。
+
 以下のコマンドを実行します。
 
     $ rbenv global 2.7.1
@@ -98,6 +102,7 @@ Ruby on Rails をインストールします。
     $ gem install rails
 
 rails コマンドが実行できるかどうか確認します。
+
 以下のコマンドを実行して、Rails のバージョンが表示されたらうまくいっています。
 
     $ rails -v
@@ -107,6 +112,7 @@ Rails バージョン 6 から Webpacker というミドルウェアを利用す
 Webpacker をインストールするためには、Node.js と、Node.js の環境で利用するパッケージマネージャ Yarn が必要になります。
 Node.js はインストールされています。
 Yarn をインストールします。
+
 以下のコマンドを実行します。
 
     $ curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
@@ -117,14 +123,17 @@ Yarn をインストールします。
 # Rails アプリのサンプル作成
 
 Rails アプリのサンプルを作成して、動作確認します。
+
 Rails アプリを新規作成するコマンドは「rails new <アプリ名>」です。
 rails-test というアプリを作成してみます。
+
 以下のコマンドを実行します。
 
     $ rails new rails-test
 
 rails-test というディレクトリが作成され、その中にひながたとなるファイルが自動生成されます。
 このアプリ内に Webpacker をインストールします。
+
 rails-test ディレクトリに移動して、「rails webpacker:install」コマンドを実行します。
 以下のコマンドを実行します。
 
@@ -143,12 +152,16 @@ rails-test ディレクトリで「rails server」コマンドを実行します
     $ rails s
 
 Cloud9 には起動したアプリをプレビューする機能が備わっています。
+
 Cloud9 のメニューバーに「Preview」があるのでクリックすると、「Preview Running Application」という選択肢があるのでクリックします。
+
 「Blocked host: ～」というエラー画面が表示されます。
 これは Rails 6 から装備されたセキュリティ機構が働いているためです。
 画面の指示に従って、「○○.vfs.cloud9.us-east-1.amazonaws.com」(○○の部分は環境ごとに異なります)を config.hosts の設定に追加します。
 config.host は config/environments/development.rb の中で設定されています。
+
 ウィンドウ左側で rails-test ディレクトリが一覧表示できますので、config/environments/development.rb を開きます。
+
 中身は、
 
     Rails.application.configure do
@@ -157,6 +170,7 @@ config.host は config/environments/development.rb の中で設定されてい�
 
 という構造になっています。
 追加する場所は、end の直前でよいと思います。
+
 エラー画面に表示されている「config.hosts << "○○.vfs.cloud9.us-east-1.amazonaws.com"」をコピーして、
 development.rb の end の直前に以下のような感じで追加します。
 
@@ -167,29 +181,44 @@ development.rb の end の直前に以下のような感じで追加します。
 
 
 rails-test を起動した状態だと思いますので、Ctrl-C を押して一度終了し、再度 rails server を実行してください。
+
 「Preview」から「Preview Running Application」をクリックすると、「接続が拒否されました」という画面が出ると思いますが、
 ここで右上にある「Pop Out into ther Next Window」というボタンをクリックします。
+
 「Yay! You're on Rails!」という画面が表示されたら成功です。
+
 確認できたらプレビューのために開いたウィンドウを閉じます。
+
 rails server を起動したターミナルで Ctrl-C を押して終了します。
 
 # Ruby プログラムの作成
 
 新しい Ruby プログラムを作成してみます。
+
 FizzBuzz プログラムを作ってみます。
+
 Cloud9 のメニューバーの「File」をクリックすると「New File」という選択肢があるのでクリックします。
+
 「Untitled 1」というウィンドウが開きます。
+
 「puts "fizzbuzz.rb"」と入力します。
+
 メニューバーの File から Save をクリックします。
+
 Filename という欄にファイル名を入力します。ここでは fizzbuzz.rb とします。
+
 保存場所を決めます。fizzbuzz というフォルダを作って保存することにします。
+
 Folder という欄に「/fizzbuzz」と入力します。
+
 Save をクリックします。
+
 左側のディレクトリツリーに「fizzbuzz」というディレクトリが追加され、その中に fizzbuzz.rb というファイルが作成されます。
 
 # Git で管理
 
 fizzbuzz.rb を Git で管理します。
+
 ターミナルの画面で、fizzbuzz ディレクトリに移動します。
 
     $ cd ~/environment/fizzbuzz
@@ -219,6 +248,7 @@ fizzbuzz.rb が git 管理下に入ったかどうか確認するため、git st
     $ 
 
 「new file:   fizzbuzz.rb」と表示されたらうまくいっています。
+
 git 管理下に入ったので、保存します。git commit コマンドを実行します。
 
     $ git commit -m "first commit"
@@ -233,24 +263,35 @@ git 管理下に入ったので、保存します。git commit コマンドを�
 # BitBucket に保存
 
 git コマンドは Cloud9 開発環境で実行しているので、ファイルは Cloud9 開発環境の中に保存されています。
+
 これらのファイルは Cloud9 開発環境を削除すると同時に失われます。
+
 そこで外部のソースコード管理サービスに保存することにします。
+
 ここでは BitBucket を利用します。
 
 ## BitBucket に新しいリポジトリを作成
 
 ブラウザで BitBucket の画面を開きます。
+
 「リポジトリ」というボタンをクリックします。
+
 「Create repository」というボタンをクリックします。
+
 「プロジェクト」欄で新しいプロジェクト名(なんでも構いません)を入力します。
+
 「リポジトリ名」に「fizzbuzz」と入力します。
+
 「リポジトリの作成」をクリックします。
 
 ## ローカルリポジトリの内容をプッシュ
 
 「バケツに何かを入れましょう」という画面が表示されます。
+
 「ローカルの Git リポジトリを Bitbucket に移行しましょう」という手順を実行します。
+
 ステップ2のところに「git remote add origin ～」というコマンドが書かれていると思いますので、それをコピーします。
+
 Cloud9 のターミナルで、fizzbuzz ディレクトリに移動して、git remote add origin ～ コマンドを実行します。
 
     $ git remote add origin https://ユーザー名@bitbucket.org/ユーザー名/fizzbuzz.git
@@ -262,3 +303,9 @@ Cloud9 のターミナルで、fizzbuzz ディレクトリに移動して、git 
 「Password for 'https://ユーザー名@bitbucket.org/ユーザー名/fizzbuzz.git': 」というメッセージが出ますので、BitBucket のパスワードを入力します。
 
 BitBucket のブラウザ画面に戻って fizzbuzz リポジトリを詠み込みなおすと、Cloud9 に保存していた fizzbuzz.rb ファイルが登録されていることを確認できると思います。
+
+今後 fizzbuzz.rb ファイルを修正して Cloud9 に commit したら、
+
+    $ git push -u origin master
+
+を実行して BitBucket に保存していきます。
