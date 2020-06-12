@@ -10,11 +10,13 @@ AWS Cloud9 開発環境を作成すると、Ruby が使える状態になって�
 
 # Cloud9 開発環境の作成
 
-* 新しく Cloud9 開発環境を作成します。
+新しく Cloud9 開発環境を作成します。
+
 * 「Environment type」は「Create a new instance for environment (EC2)」を選択します。
 * 「Instance type」は「t2.micro (1 GiB RAM + 1 vCPU)」を選択します。
 * 「Platform」は「Ubuntu Server 18.04 LTS」を選択します。
-* 少し時間がかかるので待ちます。
+
+少し時間がかかるので待ちます。
 
 # rvm を無効化
 
@@ -26,9 +28,11 @@ rvm という Ruby 管理ツールが導入されています。
 vi などのエディタを使って ~/.bash_profile を開き、以下の行の行頭に#を挿入します。
 
 修正前
+
     [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
 
 修正後
+
     #[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
 
 ## ~/.bashrc
@@ -36,11 +40,13 @@ vi などのエディタを使って ~/.bash_profile を開き、以下の行の
 vi などのエディタを使って ~/.bashrc を開き、以下の2行の行頭に#を挿入します。
 
 修正前
+
     [[ -s "$HOME/.rvm/environments/default" ]] && source "$HOME/.rvm/environments/default"
 
     export PATH="$PATH:$HOME/.rvm/bin"
 
 修正後
+
     #[[ -s "$HOME/.rvm/environments/default" ]] && source "$HOME/.rvm/environments/default"
 
     #export PATH="$PATH:$HOME/.rvm/bin"
@@ -50,10 +56,13 @@ vi などのエディタを使って ~/.bashrc を開き、以下の2行の行�
 vi などのエディタを使って ~/.profile を開き、以下の2行の行頭に#を挿入します。                                       
 
 修正前
+
     export PATH="$PATH:$HOME/.rvm/bin"
     
     [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
+
 修正後
+
     #export PATH="$PATH:$HOME/.rvm/bin"
     
     #[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
