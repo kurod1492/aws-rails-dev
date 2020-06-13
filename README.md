@@ -191,28 +191,25 @@ Cloud9 のメニューバーに「Preview」があるのでクリックすると
 
 「Blocked host: ～」というエラー画面が表示されます。
 これは Rails 6 から装備されたセキュリティ機構が働いているためです。
-画面の指示に従って、「○○.vfs.cloud9.us-east-1.amazonaws.com」(○○の部分は環境ごとに異なります)を config.hosts の設定に追加します。
-config.host は config/environments/development.rb の中で設定されています。
+Cloud9 のプレビューからのアクセスを許可する設定を追加する必要があります。
+config/environments/development.rb の中に「config.hosts << ".amazonaws.com"」という設定を追加します。
 
-ウィンドウ左側で rails-test ディレクトリが一覧表示できますので、config/environments/development.rb を開きます。
-
-中身は、
+ウィンドウ左側の rails-test ディレクトリの一覧表示の中の config/environments/development.rb ダブルクリックして開きます。
+この設定ファイルの中身は、
 
     Rails.application.configure do
       # 設定内容
     end
 
 という構造になっています。
-追加する場所は、end の直前でよいと思います。
+今回の設定を追加する場所は、end の直前でよいと思います。
 
-エラー画面に表示されている「config.hosts << "○○.vfs.cloud9.us-east-1.amazonaws.com"」をコピーして、
-development.rb の end の直前に以下のような感じで追加します。
+「config.hosts << ".amazonaws.com"」を development.rb の end の直前に以下のような感じで追加します。
 
     Rails.application.configure do
       # 設定内容
-      config.hosts << "○○.vfs.cloud9.us-east-1.amazonaws.com"
+      config.hosts << ".amazonaws.com"
     end
-
 
 rails-test を起動した状態だと思いますので、Ctrl-C を押して一度終了し、再度 rails server を実行してください。
 
