@@ -6,7 +6,7 @@ AWS Cloud9 開発環境を作成すると、Ruby が使える状態になって�
 そこで、rbenv をインストールし、Ruby の最新バージョンをインストールします。
 そのあと Ruby on Rails の最新バージョンもインストールします。
 
-また、Cloud9 で新規ファイルを作成する手順、Git の基本的な使い方、BitBucket に保存する手順も説明します。
+また、Cloud9 で新規ファイルを作成する手順、Git の基本的な使い方、Bitbucket に保存する手順も説明します。
 
 # Cloud9 開発環境の作成
 
@@ -269,7 +269,7 @@ git 管理下に入ったので、保存します。git commit コマンドを�
 
 のコマンドを繰り返して変更を保存していきます。
 
-# BitBucket に保存
+# Bitbucket に保存
 
 git コマンドは Cloud9 開発環境で実行しているので、ファイルは Cloud9 開発環境の中に保存されています。
 
@@ -277,11 +277,11 @@ git コマンドは Cloud9 開発環境で実行しているので、ファイ�
 
 そこで外部のソースコード管理サービスに保存することにします。
 
-ここでは BitBucket を利用します。
+ここでは Bitbucket を利用します。
 
-## BitBucket に新しいリポジトリを作成
+## Bitbucket に新しいリポジトリを作成
 
-ブラウザで BitBucket の画面を開きます。
+ブラウザで Bitbucket の画面を開きます。
 
 「リポジトリ」というボタンをクリックします。
 
@@ -299,22 +299,47 @@ git コマンドは Cloud9 開発環境で実行しているので、ファイ�
 
 「ローカルの Git リポジトリを Bitbucket に移行しましょう」という手順を実行します。
 
-ステップ2のところに「git remote add origin ～」というコマンドが書かれていると思いますので、それをコピーします。
+ステップ2のところに「git remote add origin ～」というコマンドが書かれていると思います。
 
-Cloud9 のターミナルで、fizzbuzz ディレクトリに移動して、git remote add origin ～ コマンドを実行します。
+そのコマンドが、
 
-    $ git remote add origin https://ユーザー名@bitbucket.org/ユーザー名/fizzbuzz.git
+    $ git remote add origin https://ワークスペースID@bitbucket.org/ワークスペースID/fizzbuzz.git
+
+となっていれば、それをコピーしておきます。
+
+もしコマンドが
+
+    $ git remote add origin https://git@bitbucket.org:ワークスペースID/fizzbuzz.git
+
+という形式の場合は、以下の手順でワークスペースIDを確認してください。
+
+Bitbucket の画面の左下に「Your profile and settings」というアイコンがありますので、それをクリックします。
+
+「RECENT WORKSPACES」という一覧が出ますので、自分の名前もしくはユーザー名をクリックします。
+
+メニューに「設定」が表示されますのでクリックします。
+
+「Workspace settings」という画面が表示されます。この中に「Workspace ID」という項目があります。
+ここに書かれているのがワークスペースIDです。
+
+Cloud9 のターミナルに戻り、fizzbuzz ディレクトリに移動して、
+
+    $ git remote add origin https://ワークスペースID@bitbucket.org/ワークスペースID/fizzbuzz.git
+
+というコマンドを実行します。
 
 続いて git push -u origin master コマンドを実行します。
 
     $ git push -u origin master
 
-「Password for 'https://ユーザー名@bitbucket.org/ユーザー名/fizzbuzz.git': 」というメッセージが出ますので、BitBucket のパスワードを入力します。
+「Password for 'https://ワークスペースID@bitbucket.org/ワークスペースID/fizzbuzz.git': 」というメッセージが出ますので、Bitbucket のパスワードを入力します。
 
-BitBucket のブラウザ画面に戻って fizzbuzz リポジトリを詠み込みなおすと、Cloud9 に保存していた fizzbuzz.rb ファイルが登録されていることを確認できると思います。
+Bitbucket のブラウザ画面に戻って fizzbuzz リポジトリの画面をリロードすると、
+Cloud9 に保存していた fizzbuzz.rb ファイルが登録されていることを確認できます。
+ファイル名をクリックしてファイルの内容を表示して、自分が作ったファイルであることを確認します。
 
 今後 fizzbuzz.rb ファイルを修正して Cloud9 に commit したら、
 
     $ git push -u origin master
 
-を実行して BitBucket に保存していきます。
+を実行して Bitbucket に保存していきます。
