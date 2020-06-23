@@ -1,6 +1,6 @@
 # AWS Cloud9 開発環境に Ruby と Rails をインストールする
 
-# 概要
+## 概要
 
 AWS Cloud9 開発環境を作成すると、Ruby が使える状態になっていますが、最新バージョンではない場合があります。
 そこで、rbenv をインストールし、Ruby の最新バージョンをインストールします。
@@ -8,7 +8,7 @@ AWS Cloud9 開発環境を作成すると、Ruby が使える状態になって�
 
 また、Cloud9 で新規ファイルを作成する手順、Git の基本的な使い方、Bitbucket に保存する手順も説明します。
 
-# Cloud9 開発環境の作成
+## Cloud9 開発環境の作成
 
 新しく Cloud9 開発環境を作成します。
 
@@ -18,61 +18,63 @@ AWS Cloud9 開発環境を作成すると、Ruby が使える状態になって�
 
 少し時間がかかるので待ちます。
 
-# rvm を無効化
+## rvm を無効化
 
 rvm という Ruby 管理ツールが導入されています。
 その設定を無効にするため、ファイルを3つ修正します。
 
-## ~/.bash_profile
+### ~/.bash_profile
 
 vi などのエディタを使って ~/.bash_profile を開き、以下の行の行頭に#を挿入します。
 
-修正前
+* 修正前
 
     [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
 
-修正後
+* 修正後
 
     #[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
 
-## ~/.bashrc
+### ~/.bashrc
 
 vi などのエディタを使って ~/.bashrc を開き、以下の2行の行頭に#を挿入します。
 
-修正前
+* 修正前
 
     [[ -s "$HOME/.rvm/environments/default" ]] && source "$HOME/.rvm/environments/default"
 
     export PATH="$PATH:$HOME/.rvm/bin"
 
-修正後
+* 修正後
 
     #[[ -s "$HOME/.rvm/environments/default" ]] && source "$HOME/.rvm/environments/default"
 
     #export PATH="$PATH:$HOME/.rvm/bin"
 
-## ~/.profile
+### ~/.profile
 
 vi などのエディタを使って ~/.profile を開き、以下の2行の行頭に#を挿入します。                                       
 
-修正前
+* 修正前
 
     export PATH="$PATH:$HOME/.rvm/bin"
     
     [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
 
-修正後
+* 修正後
 
     #export PATH="$PATH:$HOME/.rvm/bin"
     
     #[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
 
-修正が終わったらシェルを起動しなおします。exit を実行してターミナル画面を閉じから、Alt + T を押してターミナル画面を開きます。
-ruby -v を実行して Command not found と表示されれば、無効化はうまくいっています。
+修正が終わったらシェルを起動しなおします。exit を実行してターミナル画面を閉じてから、Alt + T を押して新しいターミナル画面を開きます。
 
-# rbenv のインストール
+ruby -v を実行して Command not found と表示されれば、無効化はうまくいっています。表示されない場合は、表示されるようになるまでターミナル画面を閉じて開き ruby -v を実行します。
+
+## rbenv のインストール
 
 rbenv をインストールします。
+
 以下のコマンドを実行します。
 
     $ git clone https://github.com/rbenv/rbenv.git ~/.rbenv
@@ -81,9 +83,9 @@ rbenv をインストールします。
     $ echo 'eval "$(rbenv init -)"' >> ~/.bash_profile
     $ git clone https://github.com/rbenv/ruby-build.git ~/.rbenv/plugins/ruby-build
 
-ここまで終わったらシェルを起動しなおします。exit を実行してターミナル画面を閉じから、Alt + T を押してターミナル画面を開きます。
+ここまで終わったらシェルを起動しなおします。exit を実行してターミナル画面を閉じてから、Alt + T を押してターミナル画面を開きます。
 
-rbenv を実行して以下のようなメッセージが表示されればうまくいっています。
+rbenv を実行して以下のようなメッセージが表示されればうまくいっています。表示されない場合は、表示されるようになるまでターミナル画面を閉じて開き、rbenv を実行します。
 
     $ rbenv
     rbenv 1.1.2-30-gc879cb0
@@ -106,77 +108,73 @@ rbenv を実行して以下のようなメッセージが表示されればう�
     For full documentation, see: https://github.com/rbenv/rbenv#readme
     ubuntu:~/environment $ 
 
-# Ruby のインストール
+## Ruby のインストール
 
-rbenv を使ってRubyをインストールします。
-今回はバージョン 2.7.1 をインストールします。
+rbenv を使ってRubyをインストールします。今回はバージョン 2.7.1 をインストールします。
 
 以下のコマンドを実行します。
 
     $ rbenv install 2.7.1
 
 Ruby のソースコードをダウンロードしてコンパイルするため、少し時間がかかります。
-インストールできたら、ruby コマンドが実行できるようにします。
+
+インストールが終わったら、インストールしたバージョンの ruby コマンドを実行できるようにします。
 
 以下のコマンドを実行します。
 
     $ rbenv global 2.7.1
 
-ruby コマンドが実行できるかどうか確認します。
-以下のコマンドを実行して、Ruby のバージョンが表示されたらうまくいっています。
+ruby コマンドを実行できるかどうか確認します。以下のコマンドを実行して、Ruby のバージョンが表示されたらうまくいっています。
 
     $ ruby -v
     ruby 2.7.1p83 (2020-03-31 revision a0c7c23c9c) [x86_64-linux]    
 
-# Ruby on Rails のインストール
+## Ruby on Rails のインストール
 
 Ruby on Rails をインストールします。
+
 以下のコマンドを実行します。
 
     $ gem install rails
 
-rails コマンドが実行できるかどうか確認します。
-
-以下のコマンドを実行して、Rails のバージョンが表示されたらうまくいっています。
+rails コマンドを実行できるかどうか確認します。以下のコマンドを実行して、Rails のバージョンが表示されたらうまくいっています。
 
     $ rails -v
     Rails 6.0.3.1
 
 Rails バージョン 6 から Webpacker というミドルウェアを利用する構成になりました。
 Webpacker をインストールするためには、Node.js と、Node.js の環境で利用するパッケージマネージャ Yarn が必要になります。
-Node.js はインストールされています。
-Yarn をインストールします。
 
-以下のコマンドを実行します。
+Node.js はインストールされています。
+
+Yarn をインストールします。以下のコマンドを実行します。
 
     $ curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
     $ echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
     $ sudo apt update
     $ sudo apt -y install yarn
 
-# Rails アプリのサンプル作成
+## Rails アプリのサンプル作成
 
 Rails アプリのサンプルを作成して、動作確認します。
 
 Rails アプリを新規作成するコマンドは「rails new <アプリ名>」です。
-rails-test というアプリを作成してみます。
 
-以下のコマンドを実行します。
+rails-test というアプリを作成してみます。以下のコマンドを実行します。
 
     $ rails new rails-test
 
 rails-test というディレクトリが作成され、その中にひながたとなるファイルが自動生成されます。
-このアプリ内に Webpacker をインストールします。
 
-rails-test ディレクトリに移動して、「rails webpacker:install」コマンドを実行します。
-以下のコマンドを実行します。
+このアプリ内に Webpacker をインストールします。rails-test ディレクトリに移動して、「rails webpacker:install」コマンドを実行します。以下のコマンドを実行します。
 
     $ cd rails-test
     $ rails webpacker:install
 
-# Rails アプリの起動と Cloud9 のプレビュー機能
+## Rails アプリの起動と Cloud9 のプレビュー機能
 
 この状態でアプリの起動を確認することができます。
+
 rails-test ディレクトリで「rails server」コマンドを実行します。
 
     $ rails server
@@ -201,8 +199,7 @@ config/environments/development.rb の中に「config.hosts << ".amazonaws.com"�
       # 設定内容
     end
 
-という構造になっています。
-今回の設定を追加する場所は、end の直前でよいと思います。
+という構造になっています。今回の設定を追加する場所は、end の直前でよいと思います。
 
 「config.hosts << ".amazonaws.com"」を development.rb の end の直前に以下のような感じで追加します。
 
@@ -225,7 +222,7 @@ rails-test を起動した状態のはずなので、一度終了して設定を
 
 rails server を起動したターミナルで Ctrl-C を押して終了します。
 
-# Ruby プログラムの作成
+## Ruby プログラムの作成
 
 新しい Ruby プログラムを作成してみます。
 
@@ -249,7 +246,7 @@ Save をクリックします。
 
 左側のディレクトリツリーに「fizzbuzz」というディレクトリが追加され、その中に fizzbuzz.rb というファイルが作成されます。
 
-# Git で管理
+## Git で管理
 
 fizzbuzz.rb を Git で管理します。
 
@@ -294,7 +291,7 @@ git 管理下に入ったので、保存します。git commit コマンドを�
 
 のコマンドを繰り返して変更を保存していきます。
 
-# Bitbucket に保存
+## Bitbucket に保存
 
 git コマンドは Cloud9 開発環境で実行しているので、ファイルは Cloud9 開発環境の中に保存されています。
 
@@ -304,7 +301,7 @@ git コマンドは Cloud9 開発環境で実行しているので、ファイ�
 
 ここでは Bitbucket を利用します。
 
-## Bitbucket に新しいリポジトリを作成
+### Bitbucket に新しいリポジトリを作成
 
 ブラウザで Bitbucket の画面を開きます。
 
@@ -318,7 +315,7 @@ git コマンドは Cloud9 開発環境で実行しているので、ファイ�
 
 「リポジトリの作成」をクリックします。
 
-## ローカルリポジトリの内容をプッシュ
+### ローカルリポジトリの内容をプッシュ
 
 「バケツに何かを入れましょう」という画面が表示されます。
 
