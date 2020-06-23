@@ -354,14 +354,30 @@ Cloud9 のターミナルに戻り、fizzbuzz ディレクトリに移動して�
 
     $ git push -u origin master
 
-「Password for 'https://ワークスペースID@bitbucket.org/ワークスペースID/fizzbuzz.git': 」というメッセージが出ますので、Bitbucket のパスワードを入力します。
+「Password for 'https://ワークスペースID@bitbucket.org/ワークスペースID/fizzbuzz.git': 」というメッセージが出ますので、Bitbucket のパスワードを入力します。このとき、パスワードは画面に表示されませんが、入力できているはずです。
+
+入力し終わったらエンターキーを押してください。もし
+
+    remote: Invalid username or password
+
+というメッセージが表示されてしまったら、パスワードの入力がうまくいかなかったことが考えられます。もういちど git push -u origin master コマンドを実行して、パスワードを入力します。
+
+
+うまくいくと、以下のようなメッセージが表示され、プッシュが完了します。
+
+    Counting objects: 3, done.
+    Writing objects: 100% (3/3), 320 bytes | 320.00 KiB/s, done.
+    Total 3 (delta 0), reused 0 (delta 0)
+    To https://ワークスペースID@bitbucket.org/ワークスペースID/fizzbuzz.git
+       242b33c..32054c7  master -> master
+    Branch 'master' set up to track remote branch 'master' from 'origin'.
 
 Bitbucket のブラウザ画面に戻って fizzbuzz リポジトリの画面をリロードすると、
 Cloud9 に保存していた fizzbuzz.rb ファイルが登録されていることを確認できます。
 ファイル名をクリックしてファイルの内容を表示して、自分が作ったファイルであることを確認します。
 
-今後 fizzbuzz.rb ファイルを修正して Cloud9 に commit したら、
+今後、fizzbuzz.rb ファイルを修正して git commit で保存したら、
 
     $ git push -u origin master
 
-を実行して Bitbucket に保存していきます。
+を実行して、修正内容を Bitbucket に保存していきます。
